@@ -2,22 +2,48 @@
 
 import Foundation
 
-struct Weather: Codable {
-    let temperature: Int
-    let humidity: Int
-    let description: String
-    let iconUrl: String?
+struct WeatherResponse: Codable {
+    let data: DataClass
     
-
-    enum CodingKeys: String, CodingKey {
-        case temperature = "tempC"
-        case humidity = "humidity"
-        case description = "weatherDesc"
-        case iconUrl = "weatherIconUrl"
+    struct DataClass: Codable {
+        let request: [City]
+        let currentCondition: [CurrentCondition]
         
+        enum CodingKeys: String, CodingKey {
+            case request
+            case currentCondition = "current_condition"
+        }
+    }
+    
+}
+
+
+struct CurrentCondition: Codable {
+    let tempC: String
+    let weatherIconURL, weatherDesc: [Weather]
+    let humidity: String
+    
+    enum CodingKeys: String, CodingKey {
+        case tempC = "temp_C"
+        case weatherIconURL = "weatherIconUrl"
+        case weatherDesc, humidity
+      
     }
 }
 
-struct WeatherArray: Decodable {
-    let data: [Weather]
+struct Weather: Codable {
+    let value: String
 }
+
+struct City: Codable {
+    let name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "query"
+    }
+}
+
+
+
+
+
