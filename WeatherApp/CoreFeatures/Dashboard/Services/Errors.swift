@@ -7,12 +7,10 @@ struct WeatherStatus: Decodable {
 }
 
 struct WeatherError: Decodable {
-    let errorCode: Int
-    let errorMessage: String
+    let error: [Error]
     
-    enum CodingKeys: String, CodingKey {
-        case errorCode = "error_code"
-        case errorMessage = "error_message"
+    struct Error: Codable {
+        let msg: String
     }
 }
 

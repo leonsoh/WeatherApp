@@ -37,12 +37,11 @@ class CityDetailsViewModel {
     func cityIsViewedByUser() {
         let cityCountryName = cityName.components(separatedBy: ",")
         guard let cityName = cityCountryName.first else { return }
-        print("cityIsViewedByUser: \(cityName)")
+        
         if !self.listOfCitiesViewed.contains(cityName) {
             self.listOfCitiesViewed.append(cityName)
             DataPersistence.shared.saveStringArray(array: listOfCitiesViewed)
         }
         
-       
     }
 }

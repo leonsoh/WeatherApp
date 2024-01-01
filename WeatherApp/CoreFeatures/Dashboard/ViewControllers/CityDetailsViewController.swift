@@ -29,7 +29,6 @@ class CityDetailsViewController: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.text = "Error"
         return label
     }()
     
@@ -38,7 +37,6 @@ class CityDetailsViewController: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.text = "Error"
         return label
     }()
     
@@ -47,7 +45,6 @@ class CityDetailsViewController: UIViewController {
         label.textColor = .label
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.text = "Error"
         return label
     }()
     

@@ -40,16 +40,8 @@ class DashboardViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("is search mode: \(self.viewModel.inSearchMode(self.searchController))")
-       
-    }
-    
     // MARK: - Data binding
     private func loadWeatherData() {
-        print("List of Cities View By User: \(DataPersistence.shared.retrieveListOfCitiesViewed()) Count: \(self.viewModel.citiesViewedByUser.count)")
-        print("List of Cities View By User: \(DataPersistence.shared.retrieveListOfCitiesViewed().reversed())")
-        
         self.viewModel.onCityUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -64,9 +56,9 @@ class DashboardViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
                 
                 switch error {
-                case .serverError(let serverError):
-                    alert.title = "Server Error \(serverError.errorCode)"
-                    alert.message = serverError.errorMessage
+                case .serverError:
+                    alert.title = "Server Error "
+                    alert.message = "server error"
                 case .unknown(let string):
                     alert.title = "Error Fetching Data"
                     alert.message = string
@@ -78,7 +70,7 @@ class DashboardViewController: UIViewController {
                 self?.present(alert, animated: true, completion: nil)
             }
         }
-
+        
     }
     
     
@@ -125,9 +117,19 @@ extension DashboardViewController: UISearchControllerDelegate, UISearchBarDelega
 // MARK: - TableView Functions
 extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func displayTenRecentCities() -> Int {
+        let recentMaxCount = 10
+        
+        if self.viewModel.citiesViewedByUser.count > recentMaxCount {
+            return recentMaxCount
+        } else {
+            return self.viewModel.citiesViewedByUser.count
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let inSearchMode = self.viewModel.inSearchMode(searchController)
-        return inSearchMode ? self.viewModel.filteredCities.count : self.viewModel.citiesViewedByUser.count
+        return inSearchMode ? self.viewModel.filteredCities.count : displayTenRecentCities()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

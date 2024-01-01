@@ -18,6 +18,7 @@ class DashboardViewModel {
     private(set) var citiesViewedByUser: [WeatherResponse] = [] {
         didSet {
             self.onCityUpdated?()
+            self.citiesViewedByUser.reverse()
         }
     }
     
@@ -45,7 +46,11 @@ class DashboardViewModel {
     }
     
     func fetchWeatherDataViewedByUser() {
-        let cityNames = DataPersistence.shared.retrieveListOfCitiesViewed()
+        var cityNames = DataPersistence.shared.retrieveListOfCitiesViewed()
+        
+        cityNames.removeFirst()
+        cityNames.reverse()
+        print("cityNames\(cityNames)")
         self.citiesViewedByUser = []
         
         for name in cityNames {
@@ -65,7 +70,6 @@ class DashboardViewModel {
             }
             
         }
-        
     }
 }
 

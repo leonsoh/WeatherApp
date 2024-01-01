@@ -20,7 +20,7 @@
 		C930FD0D2B3C909E00D106E4 /* DashboardFeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD0C2B3C909E00D106E4 /* DashboardFeaturesTests.swift */; };
 		C930FD0F2B3D11FE00D106E4 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD0E2B3D11FE00D106E4 /* Weather.swift */; };
 		C930FD122B3D167200D106E4 /* WeatherServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD112B3D167200D106E4 /* WeatherServices.swift */; };
-		C930FD152B3D4FDE00D106E4 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD142B3D4FDE00D106E4 /* States.swift */; };
+		C930FD152B3D4FDE00D106E4 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD142B3D4FDE00D106E4 /* Errors.swift */; };
 		C930FD172B3D55A700D106E4 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD162B3D55A700D106E4 /* UIImageExtensions.swift */; };
 		C930FD1F2B3D910C00D106E4 /* CommonUtilies.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD1E2B3D910C00D106E4 /* CommonUtilies.swift */; };
 		C930FD212B3D936E00D106E4 /* DashboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD202B3D936E00D106E4 /* DashboardTableViewCell.swift */; };
@@ -68,7 +68,7 @@
 		C930FD0C2B3C909E00D106E4 /* DashboardFeaturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardFeaturesTests.swift; sourceTree = "<group>"; };
 		C930FD0E2B3D11FE00D106E4 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		C930FD112B3D167200D106E4 /* WeatherServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServices.swift; sourceTree = "<group>"; };
-		C930FD142B3D4FDE00D106E4 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
+		C930FD142B3D4FDE00D106E4 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		C930FD162B3D55A700D106E4 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		C930FD1E2B3D910C00D106E4 /* CommonUtilies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUtilies.swift; sourceTree = "<group>"; };
 		C930FD202B3D936E00D106E4 /* DashboardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTableViewCell.swift; sourceTree = "<group>"; };
@@ -141,10 +141,10 @@
 		C930FCD32B3C51FC00D106E4 /* WeatherAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				C930FD2B2B3DDFAB00D106E4 /* MockJSON.json */,
 				C930FCD42B3C51FC00D106E4 /* WeatherAppTests.swift */,
 				C930FD0C2B3C909E00D106E4 /* DashboardFeaturesTests.swift */,
 				C930FD292B3DDD0200D106E4 /* CityDetailsTests.swift */,
-				C930FD2B2B3DDFAB00D106E4 /* MockJSON.json */,
 				C930FD2D2B3DE0D100D106E4 /* MockServices.swift */,
 			);
 			path = WeatherAppTests;
@@ -235,7 +235,7 @@
 			children = (
 				C930FCFE2B3C76E700D106E4 /* Constants.swift */,
 				C930FD112B3D167200D106E4 /* WeatherServices.swift */,
-				C930FD142B3D4FDE00D106E4 /* States.swift */,
+				C930FD142B3D4FDE00D106E4 /* Errors.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -394,7 +394,7 @@
 				C930FD252B3DBEB500D106E4 /* CityDetailsViewController.swift in Sources */,
 				C930FCF32B3C53EB00D106E4 /* DashboardViewController.swift in Sources */,
 				C930FCF92B3C5F3B00D106E4 /* SceneDelegate.swift in Sources */,
-				C930FD152B3D4FDE00D106E4 /* States.swift in Sources */,
+				C930FD152B3D4FDE00D106E4 /* Errors.swift in Sources */,
 				C930FCFF2B3C76E700D106E4 /* Constants.swift in Sources */,
 				C930FD082B3C81ED00D106E4 /* DashboardViewModel.swift in Sources */,
 				C930FD272B3DC0B900D106E4 /* CityDetailsViewModel.swift in Sources */,

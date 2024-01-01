@@ -12,15 +12,14 @@ final class MockServices: XCTestCase {
     
     func readMockJSONFile() -> Data? {
         do {
-            guard let fileUrl = Bundle.main.url(forResource: "MockJSON", withExtension: "json") else {
-                return nil
+            let bundle = Bundle(for: type(of: self))
+            if let bundlePath = bundle.path(forResource: "MockJSON", ofType: "json"),
+               let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+                return jsonData
             }
-            let data = try Data(contentsOf: fileUrl)
-            return data
-        } catch let error {
-            print(error.localizedDescription)
-            return nil
+        } catch {
+            print(error)
         }
+        return nil
     }
-
 }
