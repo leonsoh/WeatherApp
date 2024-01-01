@@ -10,11 +10,9 @@
 		C930FCBE2B3C51FB00D106E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FCBD2B3C51FB00D106E4 /* AppDelegate.swift */; };
 		C930FCC72B3C51FC00D106E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C930FCC62B3C51FC00D106E4 /* Assets.xcassets */; };
 		C930FCCA2B3C51FC00D106E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C930FCC82B3C51FC00D106E4 /* LaunchScreen.storyboard */; };
-		C930FCD52B3C51FC00D106E4 /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FCD42B3C51FC00D106E4 /* WeatherAppTests.swift */; };
 		C930FCDF2B3C51FC00D106E4 /* WeatherAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FCDE2B3C51FC00D106E4 /* WeatherAppUITests.swift */; };
 		C930FCE12B3C51FC00D106E4 /* WeatherAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FCE02B3C51FC00D106E4 /* WeatherAppUITestsLaunchTests.swift */; };
 		C930FCF32B3C53EB00D106E4 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FCF22B3C53EB00D106E4 /* DashboardViewController.swift */; };
-		C930FCF92B3C5F3B00D106E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FCBF2B3C51FB00D106E4 /* SceneDelegate.swift */; };
 		C930FCFF2B3C76E700D106E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FCFE2B3C76E700D106E4 /* Constants.swift */; };
 		C930FD082B3C81ED00D106E4 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD072B3C81ED00D106E4 /* DashboardViewModel.swift */; };
 		C930FD0D2B3C909E00D106E4 /* DashboardFeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD0C2B3C909E00D106E4 /* DashboardFeaturesTests.swift */; };
@@ -58,7 +56,6 @@
 		C930FCC92B3C51FC00D106E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C930FCCB2B3C51FC00D106E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C930FCD02B3C51FC00D106E4 /* WeatherAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C930FCD42B3C51FC00D106E4 /* WeatherAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppTests.swift; sourceTree = "<group>"; };
 		C930FCDA2B3C51FC00D106E4 /* WeatherAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C930FCDE2B3C51FC00D106E4 /* WeatherAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppUITests.swift; sourceTree = "<group>"; };
 		C930FCE02B3C51FC00D106E4 /* WeatherAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -142,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				C930FD2B2B3DDFAB00D106E4 /* MockJSON.json */,
-				C930FCD42B3C51FC00D106E4 /* WeatherAppTests.swift */,
 				C930FD0C2B3C909E00D106E4 /* DashboardFeaturesTests.swift */,
 				C930FD292B3DDD0200D106E4 /* CityDetailsTests.swift */,
 				C930FD2D2B3DE0D100D106E4 /* MockServices.swift */,
@@ -393,7 +389,6 @@
 				C930FD212B3D936E00D106E4 /* DashboardTableViewCell.swift in Sources */,
 				C930FD252B3DBEB500D106E4 /* CityDetailsViewController.swift in Sources */,
 				C930FCF32B3C53EB00D106E4 /* DashboardViewController.swift in Sources */,
-				C930FCF92B3C5F3B00D106E4 /* SceneDelegate.swift in Sources */,
 				C930FD152B3D4FDE00D106E4 /* Errors.swift in Sources */,
 				C930FCFF2B3C76E700D106E4 /* Constants.swift in Sources */,
 				C930FD082B3C81ED00D106E4 /* DashboardViewModel.swift in Sources */,
@@ -405,7 +400,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C930FCD52B3C51FC00D106E4 /* WeatherAppTests.swift in Sources */,
 				C930FD2A2B3DDD0200D106E4 /* CityDetailsTests.swift in Sources */,
 				C930FD0D2B3C909E00D106E4 /* DashboardFeaturesTests.swift in Sources */,
 				C930FD2E2B3DE0D100D106E4 /* MockServices.swift in Sources */,

@@ -27,7 +27,7 @@ class CityDetailsViewModel {
     }
     
     var temperature: String {
-        return "Temperature in degree: \(self.currentCondition.tempC)"
+        return "Temperature: \(self.currentCondition.tempC)°C"
     }
     
     var humidity: String {
@@ -40,7 +40,7 @@ class CityDetailsViewModel {
         
         if !self.listOfCitiesViewed.contains(cityName) {
             self.listOfCitiesViewed.append(cityName)
-            DataPersistence.shared.saveStringArray(array: listOfCitiesViewed)
+            DataPersistence.shared.saveListOfCitiesViewed(array: listOfCitiesViewed)
         }
         
     }

@@ -4,21 +4,20 @@ import Foundation
 import UIKit
 
 class DashboardViewModel {
-    var onCityUpdated: (() -> Void)?
+    var onDashboardUpdated: (() -> Void)?
     var onErrorMessage: ((WeatherServicesError) -> Void)?
     
     var cities = CityList.cities
     
     private(set) var cityData: [WeatherResponse] = [] {
         didSet {
-            self.onCityUpdated?()
+            self.onDashboardUpdated?()
         }
     }
     
     private(set) var citiesViewedByUser: [WeatherResponse] = [] {
         didSet {
-            self.onCityUpdated?()
-            self.citiesViewedByUser.reverse()
+            self.onDashboardUpdated?()
         }
     }
     
@@ -48,9 +47,6 @@ class DashboardViewModel {
     func fetchWeatherDataViewedByUser() {
         var cityNames = DataPersistence.shared.retrieveListOfCitiesViewed()
         
-        cityNames.removeFirst()
-        cityNames.reverse()
-        print("cityNames\(cityNames)")
         self.citiesViewedByUser = []
         
         for name in cityNames {
@@ -86,11 +82,11 @@ extension DashboardViewModel {
         
         
         if let searchText = searchBarText?.lowercased() {
-            guard !searchText.isEmpty else { self.onCityUpdated?(); return }
+            guard !searchText.isEmpty else { self.onDashboardUpdated?(); return }
             
             self.filteredCities = self.filteredCities.filter({ $0.data.request[0].name.lowercased().contains(searchText)})
         }
         
-        self.onCityUpdated?()
+        self.onDashboardUpdated?()
     }
 }

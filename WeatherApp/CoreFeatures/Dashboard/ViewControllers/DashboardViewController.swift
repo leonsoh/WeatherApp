@@ -42,7 +42,7 @@ class DashboardViewController: UIViewController {
     
     // MARK: - Data binding
     private func loadWeatherData() {
-        self.viewModel.onCityUpdated = { [weak self] in
+        self.viewModel.onDashboardUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -92,12 +92,12 @@ class DashboardViewController: UIViewController {
     
     private func setupSearchController() {
         self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         self.searchController.searchBar.placeholder = "Search"
         
         searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
-        
     }
 }
 
@@ -105,6 +105,14 @@ class DashboardViewController: UIViewController {
 extension DashboardViewController: UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating  {
     func updateSearchResults(for searchController: UISearchController) {
         self.viewModel.updateSearchController(searchBarText: searchController.searchBar.text)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            DispatchQueue.main.async {
+                self.viewModel.fetchWeatherDataViewedByUser()
+            }
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

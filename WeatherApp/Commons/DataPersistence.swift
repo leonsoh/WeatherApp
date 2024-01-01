@@ -4,16 +4,16 @@ import Foundation
 
 struct DataPersistence {
     static let shared = DataPersistence()
-    let defaults = UserDefaults.standard
     
-    let cityViewedKey = "CityViewed"
+    private let CITY_VIEWED_KEY = "CityViewed"
+    private let defaults = UserDefaults.standard
     
-    func saveStringArray(array: [String]) {
-        defaults.set(array, forKey: cityViewedKey)
+    func saveListOfCitiesViewed(array: [String]) {
+        defaults.set(array, forKey: CITY_VIEWED_KEY)
     }
     
     func retrieveListOfCitiesViewed() -> [String] {
-        return defaults.stringArray(forKey: cityViewedKey) ?? [""]
+        return defaults.stringArray(forKey: CITY_VIEWED_KEY) ?? [""]
     }
 }
 

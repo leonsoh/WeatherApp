@@ -99,4 +99,11 @@ final class DashboardFeaturesTests: XCTestCase {
             }
         }
     }
+    
+    func testSavedListOfCitiesSuccess() {
+        let cities = CityList.cities
+        DataPersistence.shared.saveListOfCitiesViewed(array: cities)
+     
+        XCTAssertEqual(DataPersistence.shared.retrieveListOfCitiesViewed(), cities)
+    }
 }
