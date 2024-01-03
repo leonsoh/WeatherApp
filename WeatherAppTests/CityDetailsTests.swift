@@ -3,81 +3,70 @@
 import XCTest
 @testable import WeatherApp
 
-final class CityDetailsTests: XCTestCase {
-    let mockService = MockServices()
+class CityDetailsTests: XCTestCase {
     
-    func testWeatherDescriptionIsString() {
+    var sut: CityDetailsViewModel!
+    
+    override func setUp() {
+        let mockService = MockServices()
         let data = mockService.readMockJSONFile()
+        
         if let data = data {
             do {
                 let decoder = JSONDecoder()
                 let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                let weatherDesc = weatherData.data.currentCondition[0].weatherDesc[0].value
-                XCTAssertEqual(weatherDesc, "Light Rain")
+                sut = CityDetailsViewModel(weatherData)
                 
             } catch let error {
                 print(error)
             }
         }
+    }
+    
+    override func tearDown() {
+        sut = nil
+        removeStoredCities()
+    }
+    
+    
+    func testWeatherDescriptionIsString() {
+        let weatherDesc = sut.weatherDescription
+        XCTAssertEqual(weatherDesc, "Light Rain")
     }
     
     func testWeatherTemperatureIsString() {
-        let data = mockService.readMockJSONFile()
-        if let data = data {
-            do {
-                let decoder = JSONDecoder()
-                let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                let temp = weatherData.data.currentCondition[0].tempC
-                XCTAssertEqual(temp, "26")
-                
-            } catch let error {
-                print(error)
-            }
-        }
+        let temperature = sut.temperature
+        XCTAssertEqual(temperature, "Temperature: 26°C")
     }
     
     func testWeatherHumidityIsString() {
-        let data = mockService.readMockJSONFile()
-        if let data = data {
-            do {
-                let decoder = JSONDecoder()
-                let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                let humidity = weatherData.data.currentCondition[0].humidity
-                XCTAssertEqual(humidity, "94")
-                
-            } catch let error {
-                print(error)
-            }
-        }
+        let humidity = sut.humidity
+        XCTAssertEqual(humidity, "Humidity: 94")
     }
     
     func testWeatherIconUrlIsString() {
-        let data = mockService.readMockJSONFile()
-        if let data = data {
-            do {
-                let decoder = JSONDecoder()
-                let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                let weatherIconUrl = weatherData.data.currentCondition[0].weatherIconURL[0].value
-                XCTAssertEqual(weatherIconUrl, "https://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0033_cloudy_with_light_rain_night.png")
-                
-            } catch let error {
-                print(error)
-            }
-        }
+        let weatherIconUrl = sut.weatherIcon
+        XCTAssertEqual(weatherIconUrl, "https://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0033_cloudy_with_light_rain_night.png")
+        
     }
     
     func testIfCityNameExists() {
-        let data = mockService.readMockJSONFile()
-        if let data = data {
-            do {
-                let decoder = JSONDecoder()
-                let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                let cityName = weatherData.data.request[0].name
-                XCTAssertTrue(!cityName.isEmpty)
-                
-            } catch let error {
-                print(error)
-            }
-        }
+        let cityName = sut.cityName
+        XCTAssertTrue(!cityName.isEmpty)
+    }
+    
+    func testIfCityViewedByUser() {
+        sut.cityIsViewedByUser()
+        let listOfCitiesViewed = UserDefaults.standard.stringArray(forKey: DataPersistence.CITY_VIEWED_KEY) ?? [""]
+       
+        
+        XCTAssertEqual(listOfCitiesViewed, ["Singapore"])
+    }
+}
+
+extension CityDetailsTests {
+    func removeStoredCities() {
+        UserDefaults.standard.removeObject(forKey: DataPersistence.CITY_VIEWED_KEY)
+        UserDefaults.standard.synchronize()
     }
 }

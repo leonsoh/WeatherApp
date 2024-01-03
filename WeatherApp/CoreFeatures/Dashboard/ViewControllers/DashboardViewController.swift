@@ -7,8 +7,8 @@ class DashboardViewController: UIViewController {
     lazy var searchBar = UISearchBar()
     
     
-    private let searchController = UISearchController(searchResultsController: nil)
-    private let viewModel: DashboardViewModel
+     let searchController = UISearchController(searchResultsController: nil)
+     let viewModel: DashboardViewModel
     
     private let tableView: UITableView = {
         let tv = UITableView()
@@ -39,7 +39,7 @@ class DashboardViewController: UIViewController {
         self.displayErrorMessage()
         
     }
-    
+        
     // MARK: - Data binding
     private func loadWeatherData() {
         self.viewModel.onDashboardUpdated = { [weak self] in
@@ -124,20 +124,10 @@ extension DashboardViewController: UISearchControllerDelegate, UISearchBarDelega
 
 // MARK: - TableView Functions
 extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func displayTenRecentCities() -> Int {
-        let recentMaxCount = 10
         
-        if self.viewModel.citiesViewedByUser.count > recentMaxCount {
-            return recentMaxCount
-        } else {
-            return self.viewModel.citiesViewedByUser.count
-        }
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let inSearchMode = self.viewModel.inSearchMode(searchController)
-        return inSearchMode ? self.viewModel.filteredCities.count : displayTenRecentCities()
+        return inSearchMode ? self.viewModel.filteredCities.count : self.viewModel.displayTenRecentCities()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

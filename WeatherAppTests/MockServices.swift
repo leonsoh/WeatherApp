@@ -5,10 +5,24 @@ import XCTest
 
 final class MockServices: XCTestCase {
     var result: Result<WeatherResponse, WeatherServicesError>!
+    var response: WeatherResponse!
     
-    func fetchWeatherData(completion: @escaping(Result<WeatherResponse, WeatherServicesError>) -> Void) {
-        completion(result)
+    override func setUp() {
+        let data = readMockJSONFile()
+        
+        if let data = data {
+            do {
+                let decoder = JSONDecoder()
+                let weatherData = try decoder.decode(WeatherResponse.self, from: data)
+                response = weatherData
+                
+            } catch let error {
+                print(error)
+            }
+        }
+
     }
+    
     
     func readMockJSONFile() -> Data? {
         do {
@@ -22,4 +36,5 @@ final class MockServices: XCTestCase {
         }
         return nil
     }
+    
 }

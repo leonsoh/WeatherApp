@@ -3,7 +3,8 @@
 import Foundation
 import UIKit
 
-class DashboardViewModel {
+class DashboardViewModel: DashboardDelegate {
+    
     var onDashboardUpdated: (() -> Void)?
     var onErrorMessage: ((WeatherServicesError) -> Void)?
     
@@ -45,7 +46,7 @@ class DashboardViewModel {
     }
     
     func fetchWeatherDataViewedByUser() {
-        var cityNames = DataPersistence.shared.retrieveListOfCitiesViewed()
+        var cityNames = UserDefaults.standard.stringArray(forKey: DataPersistence.CITY_VIEWED_KEY) ?? [""]
         
         self.citiesViewedByUser = []
         
@@ -67,6 +68,27 @@ class DashboardViewModel {
             
         }
     }
+    
+    
+    func displayTenRecentCities() -> Int {
+        let recentMaxCount = 10
+        
+        if self.citiesViewedByUser.count > recentMaxCount {
+            return recentMaxCount
+        } else {
+            return self.citiesViewedByUser.count
+        }
+    }
+    
+    func getCityData(data: WeatherResponse) -> [WeatherResponse] {
+        self.cityData.append(data)
+        return self.cityData
+    }
+    
+    func getCitiesViewedByUser(data: WeatherResponse) -> [WeatherResponse] {
+        self.citiesViewedByUser.append(data)
+        return self.citiesViewedByUser
+    }
 }
 
 extension DashboardViewModel {
@@ -74,12 +96,14 @@ extension DashboardViewModel {
         let isActive = searchController.isActive
         let searchText = searchController.searchBar.text ?? ""
         
+        print("isActive: \(isActive)")
+        print("searchText: \(searchText)")
+        
         return isActive && !searchText.isEmpty
     }
     
     public func updateSearchController(searchBarText: String?) {
         self.filteredCities = cityData
-        
         
         if let searchText = searchBarText?.lowercased() {
             guard !searchText.isEmpty else { self.onDashboardUpdated?(); return }
@@ -89,4 +113,10 @@ extension DashboardViewModel {
         
         self.onDashboardUpdated?()
     }
+}
+
+
+protocol DashboardDelegate {
+    func getCityData(data: WeatherResponse) -> [WeatherResponse]
+    func getCitiesViewedByUser(data: WeatherResponse) -> [WeatherResponse]
 }

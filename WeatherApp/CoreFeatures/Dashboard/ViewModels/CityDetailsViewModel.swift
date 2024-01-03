@@ -12,7 +12,7 @@ class CityDetailsViewModel {
     init(_ weather: WeatherResponse) {
         self.weather = weather
         self.currentCondition = weather.data.currentCondition[0]
-        self.listOfCitiesViewed = DataPersistence.shared.retrieveListOfCitiesViewed()
+        self.listOfCitiesViewed = UserDefaults.standard.stringArray(forKey: DataPersistence.CITY_VIEWED_KEY) ?? [""]
     }
     var cityName: String {
         return "\(self.weather.data.request[0].name)"
@@ -35,13 +35,16 @@ class CityDetailsViewModel {
     }
     
     func cityIsViewedByUser() {
+        
         let cityCountryName = cityName.components(separatedBy: ",")
         guard let cityName = cityCountryName.first else { return }
         
         if !self.listOfCitiesViewed.contains(cityName) {
+            self.listOfCitiesViewed = self.listOfCitiesViewed.filter({ $0 != ""})
             self.listOfCitiesViewed.append(cityName)
-            DataPersistence.shared.saveListOfCitiesViewed(array: listOfCitiesViewed)
+            print("cityIsViewedByUser() ==  \(listOfCitiesViewed)")
+            UserDefaults.standard.set(listOfCitiesViewed, forKey: DataPersistence.CITY_VIEWED_KEY)
         }
-        
     }
 }
+
