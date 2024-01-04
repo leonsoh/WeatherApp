@@ -1,26 +1,31 @@
 //
 
-import XCTest
+import Foundation
 @testable import WeatherApp
 
-final class MockServices: XCTestCase {
-    var result: Result<WeatherResponse, WeatherServicesError>!
-    var response: WeatherResponse!
-    
-    override func setUp() {
+class MockServices: WeatherServicesProtocol {
+    func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherApp.WeatherResponse, WeatherApp.WeatherServicesError>) -> Void) {
+        if cityName.isEmpty {
+            completion(.failure(WeatherServicesError.decodingError()))
+        }
+        
         let data = readMockJSONFile()
         
         if let data = data {
             do {
                 let decoder = JSONDecoder()
                 let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                response = weatherData
+                completion(.success(weatherData))
                 
+
             } catch let error {
                 print(error)
+                
             }
+        } else {
+            completion(.failure(WeatherServicesError.unknown()))
+            
         }
-
     }
     
     
@@ -36,5 +41,4 @@ final class MockServices: XCTestCase {
         }
         return nil
     }
-    
 }

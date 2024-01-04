@@ -2,9 +2,8 @@
 
 import Foundation
 
-class WeatherServices {
-    
-    static func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherResponse, WeatherServicesError>)->Void) {
+class WeatherServices : WeatherServicesProtocol {
+     func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherResponse, WeatherServicesError>)->Void) {
         
         var components = URLComponents()
         components.scheme = Constants.scheme
@@ -55,4 +54,9 @@ class WeatherServices {
             
         }.resume()
     }
+}
+
+
+protocol WeatherServicesProtocol {
+    func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherResponse, WeatherServicesError>)->Void)
 }

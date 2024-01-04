@@ -42,7 +42,7 @@ class CityDetailsViewModel {
         if !self.listOfCitiesViewed.contains(cityName) {
             self.listOfCitiesViewed = self.listOfCitiesViewed.filter({ $0 != ""})
             self.listOfCitiesViewed.append(cityName)
-            print("cityIsViewedByUser() ==  \(listOfCitiesViewed)")
+            
             UserDefaults.standard.set(listOfCitiesViewed, forKey: DataPersistence.CITY_VIEWED_KEY)
         }
     }

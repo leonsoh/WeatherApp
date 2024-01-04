@@ -59,7 +59,6 @@ class CityDetailsTests: XCTestCase {
         sut.cityIsViewedByUser()
         let listOfCitiesViewed = UserDefaults.standard.stringArray(forKey: DataPersistence.CITY_VIEWED_KEY) ?? [""]
        
-        
         XCTAssertEqual(listOfCitiesViewed, ["Singapore"])
     }
 }

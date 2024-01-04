@@ -9,6 +9,7 @@ class DashboardViewModel: DashboardDelegate {
     var onErrorMessage: ((WeatherServicesError) -> Void)?
     
     var cities = CityList.cities
+    let weatherServices = WeatherServices()
     
     private(set) var cityData: [WeatherResponse] = [] {
         didSet {
@@ -24,15 +25,10 @@ class DashboardViewModel: DashboardDelegate {
     
     private(set) var filteredCities: [WeatherResponse] = []
     
-    // MARK: - Initializer
-    init() {
-        self.fetchWeatherData()
-        self.fetchWeatherDataViewedByUser()
-    }
     
     func fetchWeatherData() {
         for city in cities {
-            WeatherServices.fetchWeatherByCityName(cityName: city) { [weak self] result in
+            weatherServices.fetchWeatherByCityName(cityName: city) { [weak self] result in
                 switch result {
                 case .success(let data):
                     self?.cityData.append(data)
@@ -46,7 +42,7 @@ class DashboardViewModel: DashboardDelegate {
     }
     
     func fetchWeatherDataViewedByUser() {
-        var cityNames = UserDefaults.standard.stringArray(forKey: DataPersistence.CITY_VIEWED_KEY) ?? [""]
+        let cityNames = UserDefaults.standard.stringArray(forKey: DataPersistence.CITY_VIEWED_KEY) ?? [""]
         
         self.citiesViewedByUser = []
         
@@ -54,7 +50,7 @@ class DashboardViewModel: DashboardDelegate {
             let formattedCityName = name.replacingOccurrences(of: " ", with: "+")
             
             if formattedCityName != "" {
-                WeatherServices.fetchWeatherByCityName(cityName: formattedCityName) { [weak self] result in
+                weatherServices.fetchWeatherByCityName(cityName: formattedCityName) { [weak self] result in
                     switch result {
                     case .success(let data):
                         self?.citiesViewedByUser.append(data)
@@ -65,7 +61,6 @@ class DashboardViewModel: DashboardDelegate {
                     
                 }
             }
-            
         }
     }
     
@@ -95,10 +90,7 @@ extension DashboardViewModel {
     public func inSearchMode(_ searchController: UISearchController) -> Bool {
         let isActive = searchController.isActive
         let searchText = searchController.searchBar.text ?? ""
-        
-        print("isActive: \(isActive)")
-        print("searchText: \(searchText)")
-        
+                
         return isActive && !searchText.isEmpty
     }
     

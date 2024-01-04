@@ -5,23 +5,27 @@ import XCTest
 
 final class DashboardFeaturesTests: XCTestCase {
     
-    var sut: DashboardViewModel!
+    let mockService = MockServices()
+    var sut = DashboardViewModel()
     
     override func setUp() {
-        let mockService = MockServices()
         let data = mockService.readMockJSONFile()
         
         if let data = data {
             do {
                 let decoder = JSONDecoder()
                 let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                sut = DashboardViewModel()
                 sut.getCityData(data: weatherData)
                 
             } catch let error {
                 print(error)
             }
         }
+    }
+    
+    override func tearDown() {
+        UserDefaults.standard.removeObject(forKey: DataPersistence.CITY_VIEWED_KEY)
+        UserDefaults.standard.synchronize()
     }
     
     func testIsWeatherImageExist() {
@@ -45,21 +49,39 @@ final class DashboardFeaturesTests: XCTestCase {
         XCTAssertTrue(!temp.isEmpty)
     }
     
-    func testFetchWeatherDataFailure() {
-        let mockService = MockServices()
-        mockService.result = .failure(.decodingError("Error"))
-        let sut = DashboardViewModel()
-        sut.fetchWeatherData()
-        
-        XCTAssertTrue(sut.cityData.isEmpty)
+    //MARK: - Fetch Weather By City Name
+    func testFetchWeatherByCityNameDataFailure() {
+        mockService.fetchWeatherByCityName(cityName: "") { result in
+            XCTAssertNotNil(result)
+        }
     }
     
-    func testFetchWeatherDataSuccess() {
-        let mockService = MockServices()
-        
-        mockService.result = .success(sut.cityData[0])
-        XCTAssertNotNil(mockService.result)
+    func testFetchWeatherByCityNameDataSuccess() {
+        mockService.fetchWeatherByCityName(cityName: "Singapore") { result in
+            XCTAssertNotNil(result)
+        }
     }
+    
+    //MARK: - Fetch Weather Data
+    func testFetchWeatherDataSuccess() {
+        sut.fetchWeatherData()
+        XCTAssertNotNil(sut.cityData)
+    }
+    
+    func testFetchWeatherDataViewedByUserSuccess() {
+        sut.fetchWeatherDataViewedByUser()
+        testFetchWeatherDataViewedByUser()
+        
+        XCTAssertNotNil(sut.citiesViewedByUser)
+        XCTAssertNil(sut.onErrorMessage)
+    }
+    
+    func testFetchWeatherDataViewedByUserFailure() {
+        testFetchWeatherDataViewedByUser()
+        
+        XCTAssertNotNil(sut.citiesViewedByUser)
+    }
+    
     
     func testSavedListOfCitiesSuccess() {
         let cities = CityList.cities
@@ -75,32 +97,34 @@ final class DashboardFeaturesTests: XCTestCase {
     }
     
     func testDisplayRecentViewedCities() {
+        testFetchWeatherDataViewedByUser()
         
-        let mockService = MockServices()
+        let recentCitiesCount = sut.displayTenRecentCities()
+        XCTAssertEqual(recentCitiesCount, 1)
+    }
+    
+    //MARK: - SearchController
+    func testUpdateSearchController() {
+        let searchBarText = "Singapore"
+        sut.updateSearchController(searchBarText: searchBarText)
+        let searchText = sut.filteredCities[0].data.request[0].name
+        XCTAssertTrue(searchText.contains(searchBarText))
+    }
+
+}
+extension DashboardFeaturesTests {
+    func testFetchWeatherDataViewedByUser() {
         let data = mockService.readMockJSONFile()
         
         if let data = data {
             do {
                 let decoder = JSONDecoder()
                 let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                sut = DashboardViewModel()
-                let cityViewed = sut.getCitiesViewedByUser(data: weatherData)
-                
-                
+                sut.getCitiesViewedByUser(data: weatherData)
                 
             } catch let error {
                 print(error)
             }
         }
-        
-        let recentCitiesCount = sut.displayTenRecentCities()
-        XCTAssertEqual(recentCitiesCount, 1)
     }
-    
-//    func testInSearchMode() {
-//        let vc = DashboardViewController()
-//        let searchMode = UISearchController(searchResultsController: vc)
-//        
-//        //XCTAssertTrue(isSearchMode)
-//    }
 }

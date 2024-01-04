@@ -14,9 +14,7 @@ struct WeatherResponse: Codable {
             case currentCondition = "current_condition"
         }
     }
-    
 }
-
 
 struct CurrentCondition: Codable {
     let tempC: String
@@ -42,8 +40,6 @@ struct City: Codable {
         case name = "query"
     }
 }
-
-
 
 
 
