@@ -48,20 +48,7 @@ final class DashboardFeaturesTests: XCTestCase {
         let temp = sut.cityData[0].data.currentCondition[0].tempC
         XCTAssertTrue(!temp.isEmpty)
     }
-    
-    //MARK: - Fetch Weather By City Name
-    func testFetchWeatherByCityNameDataFailure() {
-        mockService.fetchWeatherByCityName(cityName: "") { result in
-            XCTAssertNotNil(result)
-        }
-    }
-    
-    func testFetchWeatherByCityNameDataSuccess() {
-        mockService.fetchWeatherByCityName(cityName: "Singapore") { result in
-            XCTAssertNotNil(result)
-        }
-    }
-    
+        
     //MARK: - Fetch Weather Data
     func testFetchWeatherDataSuccess() {
         sut.fetchWeatherData()

@@ -3,36 +3,18 @@
 import Foundation
 @testable import WeatherApp
 
-class MockServices: WeatherServicesProtocol {
-    func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherApp.WeatherResponse, WeatherApp.WeatherServicesError>) -> Void) {
-        if cityName.isEmpty {
-            completion(.failure(WeatherServicesError.decodingError()))
-        }
-        
-        let data = readMockJSONFile()
-        
-        if let data = data {
-            do {
-                let decoder = JSONDecoder()
-                let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                completion(.success(weatherData))
-                
-
-            } catch let error {
-                print(error)
-                
-            }
-        } else {
-            completion(.failure(WeatherServicesError.unknown()))
-            
-        }
+class MockServices: APIClientProtocol {
+    var urlSession: URLSession {
+        //Store session-related data in RAM instead of disk
+        let configuration: URLSessionConfiguration = .ephemeral
+        configuration.protocolClasses = [MockURLProtocol.self]
+        return URLSession(configuration: configuration)
     }
     
-    
-    func readMockJSONFile() -> Data? {
+    func readMockJSONFile(fileName: String? = "MockJSON") -> Data? {
         do {
             let bundle = Bundle(for: type(of: self))
-            if let bundlePath = bundle.path(forResource: "MockJSON", ofType: "json"),
+            if let bundlePath = bundle.path(forResource: fileName, ofType: "json"),
                let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
                 return jsonData
             }

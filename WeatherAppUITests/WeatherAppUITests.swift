@@ -14,11 +14,9 @@ final class WeatherAppUITests: XCTestCase {
         
         let searchSearchField = app.navigationBars["Weather App"].searchFields["Search"]
         searchSearchField.tap()
+        searchSearchField.typeText("Singa")
         app.tables.cells.children(matching: .other).element(boundBy: 1).tap()
         app.navigationBars["Singapore, Singapore"].buttons["Back"].tap()
-        searchSearchField.tap()
-                
-                
     }
 
     func testLaunchPerformance() throws {

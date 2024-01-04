@@ -2,11 +2,11 @@
 
 import Foundation
 
-struct WeatherStatus: Decodable {
+public struct WeatherStatus: Decodable {
     let status: WeatherError
 }
 
-struct WeatherError: Decodable {
+public struct WeatherError: Decodable {
     let error: [Error]
     
     struct Error: Codable {
@@ -14,8 +14,9 @@ struct WeatherError: Decodable {
     }
 }
 
-enum WeatherServicesError: Error {
+public enum WeatherServicesError: Error {
     case serverError(WeatherError)
     case unknown(String = "An unknown error occurred.")
     case decodingError(String = "Error parsing server response.")
 }
+

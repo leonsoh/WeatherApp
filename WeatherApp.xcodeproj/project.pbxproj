@@ -28,6 +28,12 @@
 		C930FD2C2B3DDFAB00D106E4 /* MockJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = C930FD2B2B3DDFAB00D106E4 /* MockJSON.json */; };
 		C930FD302B416EDB00D106E4 /* CityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C930FD2F2B416EDB00D106E4 /* CityList.swift */; };
 		C9A370542B46410B0090F4C4 /* MockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A370532B46410B0090F4C4 /* MockServices.swift */; };
+		C9A370572B4653BC0090F4C4 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A370562B4653BC0090F4C4 /* MockURLProtocol.swift */; };
+		C9A3705A2B4654C90090F4C4 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A370592B4654C90090F4C4 /* APIClientProtocol.swift */; };
+		C9A3705C2B4657640090F4C4 /* MockWeatherServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A3705B2B4657640090F4C4 /* MockWeatherServices.swift */; };
+		C9A3705E2B4657F70090F4C4 /* MockWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A3705D2B4657F70090F4C4 /* MockWeather.swift */; };
+		C9A370612B4659590090F4C4 /* MockServiceCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A370602B4659590090F4C4 /* MockServiceCall.swift */; };
+		C9A370632B465CB00090F4C4 /* DashboardServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A370622B465CB00090F4C4 /* DashboardServicesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +80,12 @@
 		C930FD2B2B3DDFAB00D106E4 /* MockJSON.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockJSON.json; sourceTree = "<group>"; };
 		C930FD2F2B416EDB00D106E4 /* CityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityList.swift; sourceTree = "<group>"; };
 		C9A370532B46410B0090F4C4 /* MockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServices.swift; sourceTree = "<group>"; };
+		C9A370562B4653BC0090F4C4 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		C9A370592B4654C90090F4C4 /* APIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientProtocol.swift; sourceTree = "<group>"; };
+		C9A3705B2B4657640090F4C4 /* MockWeatherServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherServices.swift; sourceTree = "<group>"; };
+		C9A3705D2B4657F70090F4C4 /* MockWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeather.swift; sourceTree = "<group>"; };
+		C9A370602B4659590090F4C4 /* MockServiceCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServiceCall.swift; sourceTree = "<group>"; };
+		C9A370622B465CB00090F4C4 /* DashboardServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardServicesTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,8 +148,9 @@
 		C930FCD32B3C51FC00D106E4 /* WeatherAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				C930FD2B2B3DDFAB00D106E4 /* MockJSON.json */,
+				C9A370552B4653A60090F4C4 /* Mocks */,
 				C930FD0C2B3C909E00D106E4 /* DashboardFeaturesTests.swift */,
+				C9A370622B465CB00090F4C4 /* DashboardServicesTests.swift */,
 				C930FD292B3DDD0200D106E4 /* CityDetailsTests.swift */,
 				C9A370532B46410B0090F4C4 /* MockServices.swift */,
 			);
@@ -190,6 +203,7 @@
 		C930FCF62B3C5F1A00D106E4 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				C9A370582B4654B40090F4C4 /* Protocols */,
 				C930FCC82B3C51FC00D106E4 /* LaunchScreen.storyboard */,
 				C930FD162B3D55A700D106E4 /* UIImageExtensions.swift */,
 				C930FD222B3DABAF00D106E4 /* DataPersistence.swift */,
@@ -243,6 +257,34 @@
 				C930FCEE2B3C536900D106E4 /* Models */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		C9A370552B4653A60090F4C4 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				C9A3705F2B4658280090F4C4 /* Models */,
+				C9A370562B4653BC0090F4C4 /* MockURLProtocol.swift */,
+				C9A3705B2B4657640090F4C4 /* MockWeatherServices.swift */,
+				C9A370602B4659590090F4C4 /* MockServiceCall.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		C9A370582B4654B40090F4C4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C9A370592B4654C90090F4C4 /* APIClientProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C9A3705F2B4658280090F4C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9A3705D2B4657F70090F4C4 /* MockWeather.swift */,
+				C930FD2B2B3DDFAB00D106E4 /* MockJSON.json */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -381,6 +423,7 @@
 				C930FD232B3DABAF00D106E4 /* DataPersistence.swift in Sources */,
 				C930FD302B416EDB00D106E4 /* CityList.swift in Sources */,
 				C930FD122B3D167200D106E4 /* WeatherServices.swift in Sources */,
+				C9A3705A2B4654C90090F4C4 /* APIClientProtocol.swift in Sources */,
 				C930FCBE2B3C51FB00D106E4 /* AppDelegate.swift in Sources */,
 				C930FD212B3D936E00D106E4 /* DashboardTableViewCell.swift in Sources */,
 				C930FD252B3DBEB500D106E4 /* CityDetailsViewController.swift in Sources */,
@@ -397,8 +440,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C930FD2A2B3DDD0200D106E4 /* CityDetailsTests.swift in Sources */,
+				C9A3705E2B4657F70090F4C4 /* MockWeather.swift in Sources */,
+				C9A370612B4659590090F4C4 /* MockServiceCall.swift in Sources */,
 				C930FD0D2B3C909E00D106E4 /* DashboardFeaturesTests.swift in Sources */,
+				C9A3705C2B4657640090F4C4 /* MockWeatherServices.swift in Sources */,
 				C9A370542B46410B0090F4C4 /* MockServices.swift in Sources */,
+				C9A370632B465CB00090F4C4 /* DashboardServicesTests.swift in Sources */,
+				C9A370572B4653BC0090F4C4 /* MockURLProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

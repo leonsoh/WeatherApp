@@ -2,8 +2,14 @@
 
 import Foundation
 
-class WeatherServices : WeatherServicesProtocol {
-     func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherResponse, WeatherServicesError>)->Void) {
+class WeatherServices {
+    let urlSession: URLSession
+    
+    init(urlSession: URLSession = URLSession.shared) {
+        self.urlSession = urlSession
+    }
+    
+    func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherResponse, WeatherServicesError>)->Void) {
         
         var components = URLComponents()
         components.scheme = Constants.scheme
@@ -17,46 +23,29 @@ class WeatherServices : WeatherServicesProtocol {
         guard let url = components.url else { return }
         
         
-        URLSession.shared.dataTask(with: url) { data, resp, error in
-            if let error = error {
-                completion(.failure(.unknown(error.localizedDescription)))
-                return
-            }
-            
-            if let resp = resp as? HTTPURLResponse, resp.statusCode != 200 {
-                
-                do {
-                    let weatherError = try JSONDecoder().decode(WeatherError.self, from: data ?? Data())
-                    completion(.failure(.serverError(weatherError)))
-                    
-                } catch let error {
-                    completion(.failure(.unknown()))
-                    print(error.localizedDescription)
-                }
-            }
-            
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    let weatherData = try decoder.decode(WeatherResponse.self, from: data)
-                    
-                    completion(.success(weatherData))
-                    
-                    
-                } catch let error {
-                    completion(.failure(.decodingError()))
-                    print(error)
+        let dataTask = urlSession.dataTask(with: url) { data, resp, error in
+            do {
+                if let error = error {
+                    completion(.failure(.unknown(error.localizedDescription)))
+                    throw error
                 }
                 
-            } else {
-                completion(.failure(.unknown()))
+                guard let httpRes = resp as? HTTPURLResponse, 200..<300 ~= httpRes.statusCode else {
+                    completion(.failure(.unknown("Network Error")))
+                    return
+                }
+                
+                if let data = data, let obj = try? JSONDecoder().decode(WeatherResponse.self, from: data) {
+                    print(obj)
+                    completion(.success(obj))
+                } else {
+                    completion(.failure(.decodingError("Decoding Error")))
+                    throw WeatherServicesError.decodingError("Decoding Error")
+                }
+            } catch {
+                completion(.failure(.unknown("Error occured")))
             }
-            
-        }.resume()
+        }
+        dataTask.resume()
     }
-}
-
-
-protocol WeatherServicesProtocol {
-    func fetchWeatherByCityName(cityName: String, completion: @escaping (Result<WeatherResponse, WeatherServicesError>)->Void)
 }
