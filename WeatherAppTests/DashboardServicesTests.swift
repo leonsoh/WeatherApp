@@ -55,7 +55,7 @@ final class DashboardServicesTests: XCTestCase {
         
         sut.fetchWeatherByCityName(cityName: "") { result in
             switch result {
-            case .success(let weather):
+            case .success(_):
                 XCTFail("Success was not expected")
             case .failure(let error):
                 XCTAssertNotNil(error)
@@ -79,7 +79,7 @@ final class DashboardServicesTests: XCTestCase {
         
         sut.fetchWeatherByCityName(cityName: "") { result in
             switch result {
-            case .success(let weather):
+            case .success(_):
                 XCTFail("Success was not expected")
             case .failure(let error):
                 XCTAssertNotNil(error)

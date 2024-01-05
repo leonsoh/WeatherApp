@@ -45,15 +45,17 @@ class DashboardViewModel: DashboardDelegate {
         
         self.citiesViewedByUser = []
         
-        let cityName = Utilities.shared.formatStringFromArray(array: cityNames)
-        
-        if cityName != "" {
-            weatherServices.fetchWeatherByCityName(cityName: cityName) { [weak self] result in
-                switch result {
-                case .success(let data):
-                    self?.citiesViewedByUser.append(data)
-                case .failure(let error):
-                    self?.onErrorMessage?(error)
+        for name in cityNames {
+            let cityName = Utilities.shared.formatString(string: name)
+            
+            if cityName != "" {
+                weatherServices.fetchWeatherByCityName(cityName: cityName) { [weak self] result in
+                    switch result {
+                    case .success(let data):
+                        self?.citiesViewedByUser.append(data)
+                    case .failure(let error):
+                        self?.onErrorMessage?(error)
+                    }
                 }
             }
         }
