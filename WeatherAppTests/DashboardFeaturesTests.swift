@@ -64,11 +64,10 @@ final class DashboardFeaturesTests: XCTestCase {
     }
     
     func testFetchWeatherDataViewedByUserFailure() {
-        testFetchWeatherDataViewedByUser()
+        sut.fetchWeatherDataViewedByUser()
         
         XCTAssertNotNil(sut.citiesViewedByUser)
     }
-    
     
     func testSavedListOfCitiesSuccess() {
         let cities = CityList.cities
@@ -83,10 +82,16 @@ final class DashboardFeaturesTests: XCTestCase {
         XCTAssertEqual(recentCitiesCount, 0)
     }
     
+    func testDisplayTenRecentViewedCities() {
+        //Fetch more than 10 count
+        testFetchElevenWeatherDataViewedByUser()
+        
+        XCTAssertEqual(sut.displayTenRecentCities(), 10)
+    }
+    
     func testDisplayRecentViewedCities() {
         testFetchWeatherDataViewedByUser()
-        
-        let recentCitiesCount = sut.displayTenRecentCities()
+        let recentCitiesCount = sut.citiesViewedByUser.count
         XCTAssertEqual(recentCitiesCount, 1)
     }
     
@@ -100,6 +105,24 @@ final class DashboardFeaturesTests: XCTestCase {
 
 }
 extension DashboardFeaturesTests {
+    func testFetchElevenWeatherDataViewedByUser() {
+        let data = mockService.readMockJSONFile()
+        
+        if let data = data {
+            do {
+                let decoder = JSONDecoder()
+                let weatherData = try decoder.decode(WeatherResponse.self, from: data)
+                
+                for _ in 1...11 {
+                    sut.getCitiesViewedByUser(data: weatherData)
+                }
+                
+            } catch let error {
+                print(error)
+            }
+        }
+    }
+    
     func testFetchWeatherDataViewedByUser() {
         let data = mockService.readMockJSONFile()
         

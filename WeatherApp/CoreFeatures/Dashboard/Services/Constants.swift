@@ -4,7 +4,7 @@ import Foundation
 
 class Constants {
     //Insert your API Keys
-    static let API_KEY = "05e05d4872424f7481084546240301"
+    static let API_KEY = "ca5b52516b83403d8dc122230232712"
     static let scheme = "https"
     static let baseURL = "api.worldweatheronline.com/premium/v1/weather.ashx"
     static let jsonFormat = "json"

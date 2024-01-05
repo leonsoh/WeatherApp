@@ -3,14 +3,7 @@
 import Foundation
 @testable import WeatherApp
 
-class MockServices: APIClientProtocol {
-    var urlSession: URLSession {
-        //Store session-related data in RAM instead of disk
-        let configuration: URLSessionConfiguration = .ephemeral
-        configuration.protocolClasses = [MockURLProtocol.self]
-        return URLSession(configuration: configuration)
-    }
-    
+class MockServices {
     func readMockJSONFile(fileName: String? = "MockJSON") -> Data? {
         do {
             let bundle = Bundle(for: type(of: self))

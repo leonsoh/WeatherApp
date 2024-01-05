@@ -19,14 +19,13 @@ class WeatherServices {
             URLQueryItem(name: Params.query.rawValue, value: cityName),
             URLQueryItem(name: Params.format.rawValue, value: Constants.jsonFormat),
         ]
-        
+               
         guard let url = components.url else { return }
-        
         
         let dataTask = urlSession.dataTask(with: url) { data, resp, error in
             do {
                 if let error = error {
-                    completion(.failure(.unknown(error.localizedDescription)))
+                    completion(.failure(.unknown("Error occured")))
                     throw error
                 }
                 
@@ -36,10 +35,8 @@ class WeatherServices {
                 }
                 
                 if let data = data, let obj = try? JSONDecoder().decode(WeatherResponse.self, from: data) {
-                    print(obj)
                     completion(.success(obj))
                 } else {
-                    completion(.failure(.decodingError("Decoding Error")))
                     throw WeatherServicesError.decodingError("Decoding Error")
                 }
             } catch {

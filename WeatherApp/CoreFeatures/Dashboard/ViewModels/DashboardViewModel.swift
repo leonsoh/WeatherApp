@@ -33,7 +33,6 @@ class DashboardViewModel: DashboardDelegate {
                 case .success(let data):
                     self?.cityData.append(data)
                     
-                    
                 case .failure(let error):
                     self?.onErrorMessage?(error)
                 }
@@ -46,19 +45,15 @@ class DashboardViewModel: DashboardDelegate {
         
         self.citiesViewedByUser = []
         
-        for name in cityNames {
-            let formattedCityName = name.replacingOccurrences(of: " ", with: "+")
-            
-            if formattedCityName != "" {
-                weatherServices.fetchWeatherByCityName(cityName: formattedCityName) { [weak self] result in
-                    switch result {
-                    case .success(let data):
-                        self?.citiesViewedByUser.append(data)
-                        
-                    case .failure(let error):
-                        self?.onErrorMessage?(error)
-                    }
-                    
+        let cityName = Utilities.shared.formatStringFromArray(array: cityNames)
+        
+        if cityName != "" {
+            weatherServices.fetchWeatherByCityName(cityName: cityName) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    self?.citiesViewedByUser.append(data)
+                case .failure(let error):
+                    self?.onErrorMessage?(error)
                 }
             }
         }

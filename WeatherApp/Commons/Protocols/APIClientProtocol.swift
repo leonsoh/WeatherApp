@@ -8,13 +8,12 @@ public protocol APIClientProtocol {
 }
 
 extension APIClientProtocol {
-    
     public var urlSession: URLSession {
         return URLSession.shared
     }
     
     public func request<T: Codable>(_ request: URLRequest, completion: @escaping (Result<T, WeatherServicesError>) -> Void) {
-        let task = urlSession.dataTask(with: request) { data, response, error in
+        urlSession.dataTask(with: request) { data, response, error in
             var result: Result<T, WeatherServicesError>
             if let error = error {
                 result = .failure(.unknown(error.localizedDescription))
@@ -43,8 +42,6 @@ extension APIClientProtocol {
             DispatchQueue.main.async {
                 completion(result)
             }
-        }
-        
-        task.resume()
+        }.resume()
     }
 }
