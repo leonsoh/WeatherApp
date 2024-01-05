@@ -34,6 +34,7 @@
 		C9A3705E2B4657F70090F4C4 /* MockWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A3705D2B4657F70090F4C4 /* MockWeather.swift */; };
 		C9A370612B4659590090F4C4 /* MockServiceCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A370602B4659590090F4C4 /* MockServiceCall.swift */; };
 		C9A370632B465CB00090F4C4 /* DashboardServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A370622B465CB00090F4C4 /* DashboardServicesTests.swift */; };
+		C9B6AD9A2B47B3170096F869 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6AD992B47B3170096F869 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		C9A3705D2B4657F70090F4C4 /* MockWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeather.swift; sourceTree = "<group>"; };
 		C9A370602B4659590090F4C4 /* MockServiceCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServiceCall.swift; sourceTree = "<group>"; };
 		C9A370622B465CB00090F4C4 /* DashboardServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardServicesTests.swift; sourceTree = "<group>"; };
+		C9B6AD992B47B3170096F869 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				C930FCC82B3C51FC00D106E4 /* LaunchScreen.storyboard */,
 				C930FD162B3D55A700D106E4 /* UIImageExtensions.swift */,
 				C930FD222B3DABAF00D106E4 /* DataPersistence.swift */,
+				C9B6AD992B47B3170096F869 /* Utilities.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				C930FD0F2B3D11FE00D106E4 /* Weather.swift in Sources */,
 				C930FD172B3D55A700D106E4 /* UIImageExtensions.swift in Sources */,
 				C930FD232B3DABAF00D106E4 /* DataPersistence.swift in Sources */,
+				C9B6AD9A2B47B3170096F869 /* Utilities.swift in Sources */,
 				C930FD302B416EDB00D106E4 /* CityList.swift in Sources */,
 				C930FD122B3D167200D106E4 /* WeatherServices.swift in Sources */,
 				C9A3705A2B4654C90090F4C4 /* APIClientProtocol.swift in Sources */,

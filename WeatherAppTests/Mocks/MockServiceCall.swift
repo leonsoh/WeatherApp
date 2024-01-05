@@ -42,8 +42,6 @@ public struct MockServiceCall: Requestable {
         var request = URLRequest(url: url.appendingPathComponent(path))
         request.httpMethod = method
         
-        print("URL: \(request)")
-        
         return request
     }
 }

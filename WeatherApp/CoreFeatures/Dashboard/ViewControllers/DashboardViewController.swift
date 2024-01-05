@@ -41,8 +41,10 @@ class DashboardViewController: UIViewController {
     
     // MARK: - Data binding
     private func loadWeatherData() {
-        self.viewModel.fetchWeatherData()
-        self.viewModel.fetchWeatherDataViewedByUser()
+        if !Utilities.shared.isRunningTests() {
+            self.viewModel.fetchWeatherData()
+            self.viewModel.fetchWeatherDataViewedByUser()
+        }
         
         self.viewModel.onDashboardUpdated = { [weak self] in
             DispatchQueue.main.async {
